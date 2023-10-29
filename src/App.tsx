@@ -1,5 +1,12 @@
+import { GlobalCss } from './styles'
+
 function App() {
-  return <div></div>
+  return (
+    <>
+      <GlobalCss />
+      <div>dcfa</div>
+    </>
+  )
 }
 
 export default App
