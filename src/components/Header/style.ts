@@ -8,10 +8,11 @@ export const HeaderContainer = styled.header`
   text-align: center;
 `
 export const Logo = styled.h1`
-  padding: 2.5rem;
-  margin-bottom: 8.5rem;
+  display: grid;
+  place-content: center;
 `
 export const Text = styled.p`
   font-size: 2.25rem;
   font-weight: 900;
+  margin-top: 8.5rem;
 `
