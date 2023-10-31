@@ -23,7 +23,11 @@ const Restaurant = () => {
           Japão sem sair do lar com nosso delivery!
         </S.RestaurantDescription>
 
-        <Button type="link" title="Saiba mais desse resturante">
+        <Button
+          type="link"
+          title="Saiba mais desse resturante"
+          to="/restaurant"
+        >
           Saiba mais
         </Button>
       </S.RestaurantDetails>
