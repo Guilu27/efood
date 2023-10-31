@@ -11,23 +11,25 @@ export const RestaurantDetails = styled.div`
   border-top: none;
   grid-area: restaurant_details;
   padding: 8px;
-
-  h2 {
-    font-size: 1.125rem;
-    font-weight: bold;
-  }
-
-  & > p {
-    margin: 1rem 0;
-  }
-
-  div {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    place-content: center;
-    gap: 0.5rem;
-  }
 `
+
+export const RestaurantTitle = styled.h2`
+  font-size: 1.125rem;
+  font-weight: bold;
+`
+
+export const RestaurantDescription = styled.p`
+  margin: 1rem 0;
+  font-size: 0.875rem;
+`
+
+export const RestaurantInfo = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  margin: auto;
+`
+
 export const RestaurantImage = styled.img`
   grid-area: resturant_image;
   width: 100%;

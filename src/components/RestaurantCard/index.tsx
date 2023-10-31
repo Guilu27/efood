@@ -8,20 +8,20 @@ const Restaurant = () => {
   return (
     <S.CardContainer>
       <S.RestaurantDetails>
-        <div>
-          <h2>Hioki Sushi</h2>
-          <div>
+        <S.RestaurantInfo>
+          <S.RestaurantTitle>Hioki Sushi</S.RestaurantTitle>
+          <S.RestaurantInfo>
             <p>4.9</p>
             <img src={Star} alt="" />
-          </div>
-        </div>
+          </S.RestaurantInfo>
+        </S.RestaurantInfo>
 
-        <p>
+        <S.RestaurantDescription>
           Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis
           frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega
           rápida, embalagens cuidadosas e qualidade garantida.Experimente o
           Japão sem sair do lar com nosso delivery!
-        </p>
+        </S.RestaurantDescription>
 
         <Button type="link" title="Saiba mais desse resturante">
           Saiba mais
