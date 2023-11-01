@@ -13,7 +13,7 @@ export const RestaurantDetails = styled.div`
   padding: 8px;
 `
 
-export const RestaurantTitle = styled.h2`
+export const RestaurantTitle = styled.h3`
   font-size: 1.125rem;
   font-weight: bold;
 `
@@ -33,6 +33,8 @@ export const RestaurantInfo = styled.div`
 export const RestaurantImage = styled.img`
   grid-area: resturant_image;
   width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
 `
 export const RestaurantTags = styled.div`
   position: absolute;
