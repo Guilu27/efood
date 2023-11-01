@@ -8,7 +8,7 @@ import { Props } from '.'
 
 export const HeaderContainer = styled.header<Props>`
   background-image: url(${Background});
-  padding: 2.5rem;
+  padding: 2.5rem 0;
   text-align: center;
 
   ${(props) =>
