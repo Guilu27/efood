@@ -1,12 +1,11 @@
 import Header from '../../components/Header'
-import RestaurantsList from '../../components/RestaurantsList'
+import CardsList from '../../components/CardsList'
 
 const Home = () => (
   <div>
     <Header type="main" />
     <div className="container">
-      <RestaurantsList />
-      <RestaurantsList />
+      <CardsList type="restaurants" />
     </div>
   </div>
 )
