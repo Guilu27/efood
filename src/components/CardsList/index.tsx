@@ -1,8 +1,12 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+
 import Restaurant from '../../models/Restaurant'
 import Card from '../Card'
 import { CardsContainer } from './styles'
 import { RootReducer } from '../../store'
+import { select } from '../../store/reducers/restaurants'
 
 export type Props = {
   type: 'restaurants' | 'foods'
@@ -10,6 +14,28 @@ export type Props = {
 
 const CardsList = ({ type }: Props) => {
   const { itens } = useSelector((state: RootReducer) => state.restaurant)
+
+  const dispatch = useDispatch()
+
+  const { name } = useParams()
+
+  const originalRestaurantName = name ? name.replace(/_/g, ' ') : ''
+
+  const restaurantIndex = itens.findIndex(
+    (restaurant) =>
+      restaurant.name.toLocaleLowerCase().trim() === originalRestaurantName
+  )
+
+  useEffect(() => {
+    if (restaurantIndex !== -1) {
+      dispatch(
+        select({
+          id: itens[restaurantIndex].id,
+          isSelected: true
+        })
+      )
+    }
+  }, [restaurantIndex, dispatch, itens])
 
   function restaurantfiltred() {
     const selectedRestaurant = itens.filter((item) => item.isSelected === true)

@@ -6,7 +6,7 @@ import RestaurantPage from './pages/RestaurantPage'
 const SiteRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/restaurant" element={<RestaurantPage />} />
+    <Route path="/restaurant/:name" element={<RestaurantPage />} />
   </Routes>
 )
 

@@ -16,11 +16,7 @@ const Header = ({ type }: Props) => {
   const navigate = useNavigate()
 
   function ResetingisSelected() {
-    console.log(itens)
-
     const selectedRestaurant = itens.filter((item) => item.isSelected === true)
-
-    console.log(selectedRestaurant)
 
     if (selectedRestaurant.length > 0) {
       dispatch(

@@ -18,8 +18,12 @@ export type Props = {
 const Card = ({ type, restaurant, food }: Props) => {
   const isRestaurant = type === 'restaurants'
   const navigate = useNavigate()
-
   const dispatch = useDispatch()
+
+  const formattedRestaurantName = restaurant.name
+    .trim()
+    .toLowerCase()
+    .replace(/ /g, '_')
 
   function selectingRestaurant() {
     dispatch(
@@ -29,7 +33,7 @@ const Card = ({ type, restaurant, food }: Props) => {
       })
     )
     if (isRestaurant) {
-      navigate(`/restaurant`)
+      navigate(`/restaurant/${formattedRestaurantName}`)
     }
   }
 
