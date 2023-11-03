@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 
 import * as S from './styles'
 import Tag from '../Tag'
 import Star from '../../assets/images/star.svg'
 import Button from '../Button'
-import { select } from '../../store/reducers/restaurants'
+
 import Restaurant from '../../models/Restaurant'
 import Food from '../../models/Food'
 
@@ -18,24 +17,11 @@ export type Props = {
 const Card = ({ type, restaurant, food }: Props) => {
   const isRestaurant = type === 'restaurants'
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const formattedRestaurantName = restaurant.name
     .trim()
     .toLowerCase()
     .replace(/ /g, '_')
-
-  function selectingRestaurant() {
-    dispatch(
-      select({
-        id: restaurant.id,
-        isSelected: true
-      })
-    )
-    if (isRestaurant) {
-      navigate(`/restaurant/${formattedRestaurantName}`)
-    }
-  }
 
   const renderTags = (
     <>
@@ -70,7 +56,10 @@ const Card = ({ type, restaurant, food }: Props) => {
           {isRestaurant ? restaurant.description : food?.description}
         </S.CardDescription>
 
-        <Button title={renderButtonTitle} onClick={selectingRestaurant}>
+        <Button
+          title={renderButtonTitle}
+          onClick={() => navigate(`/restaurant/${formattedRestaurantName}`)}
+        >
           {renderButtonTitle}
         </Button>
       </S.CardDetails>

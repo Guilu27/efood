@@ -94,51 +94,6 @@ const initialState: RestaurantState = {
         }
       ],
       id: 2
-    },
-    {
-      tags: ['Destaque da semana'],
-      nationality: 'Japonês',
-      image: Sushi,
-      name: 'Hioki Sushi 2',
-      rate: 4.9,
-      description:
-        'Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida.Experimente o Japão sem sair do lar com nosso delivery!',
-      isSelected: false,
-      foods: [
-        {
-          image:
-            'https://receitinhas.com.br/wp-content/uploads/2018/08/iStock-615893140-730x365.jpg',
-          name: 'Sushi de Salmão',
-          description:
-            'Pequenos bolinhos de arroz cobertos com fatias de salmão fresco.',
-          id: 9
-        },
-        {
-          image:
-            'https://www.kien.com.br/pedido/wp-content/uploads/2014/09/302.jpg',
-          name: 'Sashimi de Atum',
-          description:
-            'Fatias finas de atum cru fresco, servidas com molho de soja e wasabi.',
-          id: 10
-        },
-        {
-          image:
-            'https://img.cybercook.com.br/imagens/receitas/590/temaki-california.jpg',
-          name: 'Temaki Califórnia',
-          description:
-            'Um cone de alga recheado com abacate, caranguejo, pepino e arroz.',
-          id: 11
-        },
-        {
-          image:
-            'https://mundo-nipo.com/wp-content/uploads/2020/03/Tempura-de-camar%C3%A3o-Foto-Dan-yul-Future-03.jpg',
-          name: 'Tempura de Camarão',
-          description:
-            'Camarões crocantes em uma massa leve, acompanhados de molho de mergulho.',
-          id: 12
-        }
-      ],
-      id: 3
     }
   ]
 }

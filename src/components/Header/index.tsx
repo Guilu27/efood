@@ -1,34 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Logo from '../../assets/images/logo.svg'
 import * as S from './style'
-import { RootReducer } from '../../store'
-import { select } from '../../store/reducers/restaurants'
 
 export type Props = {
   type: 'main' | 'restaurant'
 }
 
 const Header = ({ type }: Props) => {
-  const dispatch = useDispatch()
-  const { itens } = useSelector((state: RootReducer) => state.restaurant)
   const navigate = useNavigate()
-
-  function ResetingisSelected() {
-    const selectedRestaurant = itens.filter((item) => item.isSelected === true)
-
-    if (selectedRestaurant.length > 0) {
-      dispatch(
-        select({
-          id: selectedRestaurant[0].id,
-          isSelected: !selectedRestaurant[0].isSelected
-        })
-      )
-    }
-
-    navigate('/')
-  }
 
   const renderMainHeader = () => (
     <div className="container">
@@ -49,7 +29,7 @@ const Header = ({ type }: Props) => {
       </S.Logo>
       <S.HeaderButton
         className="restaurantsButton"
-        onClick={ResetingisSelected}
+        onClick={() => navigate('/')}
       >
         Restaurantes
       </S.HeaderButton>

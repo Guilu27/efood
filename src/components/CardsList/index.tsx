@@ -26,6 +26,19 @@ const CardsList = ({ type }: Props) => {
       restaurant.name.toLocaleLowerCase().trim() === originalRestaurantName
   )
 
+  function ResetingisSelected() {
+    const selectedRestaurant = itens.filter((item) => item.isSelected === true)
+
+    if (selectedRestaurant.length > 0) {
+      dispatch(
+        select({
+          id: selectedRestaurant[0].id,
+          isSelected: !selectedRestaurant[0].isSelected
+        })
+      )
+    }
+  }
+
   useEffect(() => {
     if (restaurantIndex !== -1) {
       dispatch(
@@ -34,8 +47,10 @@ const CardsList = ({ type }: Props) => {
           isSelected: true
         })
       )
+    } else {
+      ResetingisSelected()
     }
-  }, [restaurantIndex, dispatch, itens])
+  })
 
   function restaurantfiltred() {
     const selectedRestaurant = itens.filter((item) => item.isSelected === true)
