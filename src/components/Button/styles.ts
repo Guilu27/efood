@@ -1,9 +1,8 @@
-import styled, { css } from 'styled-components'
-import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import { colors } from '../../styles'
 
-const buttonStyles = css`
+export const ButtonContainer = styled.button`
   color: ${colors.beige};
   font-size: 0.875rem;
   font-weight: bold;
@@ -13,11 +12,4 @@ const buttonStyles = css`
   border: none;
   width: auto;
   cursor: pointer;
-`
-
-export const ButtonContainer = styled.button`
-  ${buttonStyles}
-`
-export const ButtonLink = styled(Link)`
-  ${buttonStyles}
 `

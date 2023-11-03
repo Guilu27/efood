@@ -1,67 +1,92 @@
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
 import * as S from './styles'
 import Tag from '../Tag'
 import Star from '../../assets/images/star.svg'
-import Sushi from '../../assets/images/hioki_sushi.png'
 import Button from '../Button'
+import Food from '../../models/Food'
+import { select } from '../../store/reducers/restaurants'
 
 export type Props = {
   type: 'restaurants' | 'foods'
+  tags: string[]
+  nationality: string
+  image: string
+  name: string
+  rate: number
+  description: string
+  food?: Food
+  id: number
+  isSelected: boolean
 }
 
-const restaurantData = {
-  restaurants: {
-    title: 'Hioki Sushi',
-    rating: 4.9,
-    description:
-      'Peça já o melhor da culinária japonesa no conforto da sua casa!...',
-    tags: ['Destaque da semana', 'Japonesa'],
-    image: Sushi,
-    button: 'Saiba mais'
-  },
-  foods: {
-    title: 'Pizza Marguerita',
-    description:
-      'Peça já o melhor da culinária japonesa no conforto da sua casa!...',
-    image: Sushi,
-    button: 'Adicionar ao carrinho'
+const Card = ({
+  type,
+  tags,
+  nationality,
+  image,
+  name,
+  rate,
+  description,
+  food,
+  id,
+  isSelected
+}: Props) => {
+  const isRestaurant = type === 'restaurants'
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+
+  function selectingRestaurant() {
+    dispatch(
+      select({
+        id,
+        isSelected: true
+      })
+    )
+    if (isRestaurant) {
+      navigate('/restaurant')
+    }
   }
-}
 
-const Card = ({ type }: Props) => {
-  const data = restaurantData[type]
+  const renderTags = (
+    <>
+      <S.CardTags>
+        {tags.map((tag, index) => (
+          <Tag key={index}>{tag}</Tag>
+        ))}
+        <Tag>{nationality}</Tag>
+      </S.CardTags>
+      <S.CardInfo>
+        <p>{rate}</p>
+        <img src={Star} alt="estrela amarela" />
+      </S.CardInfo>
+    </>
+  )
+
+  const renderButtonTitle = isRestaurant
+    ? 'Saiba mais'
+    : 'Adicionar ao carrinho'
 
   return (
     <S.CardContainer type={type}>
       <S.CardDetails>
         <S.CardInfo>
-          <S.CardTitle>{data.title}</S.CardTitle>
-          {type === 'restaurants' && 'tags' in data && (
-            <>
-              <S.CardTags>
-                {data.tags.map((tag, index) => (
-                  <Tag key={index}>{tag}</Tag>
-                ))}
-              </S.CardTags>
-              <S.CardInfo>
-                <p>4.9</p>
-                <img src={Star} alt="estrela amarela" />
-              </S.CardInfo>
-            </>
-          )}
+          <S.CardTitle>{isRestaurant ? name : food?.name}</S.CardTitle>
+          {isRestaurant && renderTags}
         </S.CardInfo>
 
-        <S.CardDescription>{data.description}</S.CardDescription>
+        <S.CardDescription>
+          {isRestaurant ? description : food?.description}
+        </S.CardDescription>
 
-        <Button
-          type={type === 'restaurants' ? 'link' : 'button'}
-          title={data.button}
-          to="/restaurant"
-        >
-          {type === 'restaurants' ? 'Saiba mais' : 'Adicionar ao carrinho'}
+        <Button title={renderButtonTitle} onClick={selectingRestaurant}>
+          {renderButtonTitle}
         </Button>
       </S.CardDetails>
 
-      <S.CardImage src={data.image} alt="" />
+      <S.CardImage src={isRestaurant ? image : food?.image} alt="" />
     </S.CardContainer>
   )
 }

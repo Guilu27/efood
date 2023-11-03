@@ -5,9 +5,23 @@ import { Props } from '.'
 
 import { ButtonContainer } from '../Button/styles'
 
-export const CardContainer = styled.div<Props>`
-  display: grid;
-  grid-template-areas: 'card_image' 'card_details';
+export const CardContainer = styled.div<
+  Omit<
+    Props,
+    | 'tags'
+    | 'nationality'
+    | 'image'
+    | 'name'
+    | 'rate'
+    | 'description'
+    | 'food'
+    | 'id'
+    | 'isSelected'
+  >
+>`
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
   position: relative;
 
   ${(props) =>
@@ -31,7 +45,6 @@ export const CardContainer = styled.div<Props>`
 export const CardDetails = styled.div`
   border: 1px solid ${colors.red};
   border-top: none;
-  grid-area: card_details;
   padding: 0.5rem;
 `
 
@@ -53,7 +66,6 @@ export const CardInfo = styled.div`
 `
 
 export const CardImage = styled.img`
-  grid-area: card_image;
   width: 100%;
   aspect-ratio: 16/9;
   object-fit: cover;

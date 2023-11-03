@@ -1,16 +1,28 @@
+import Restaurant from '../../models/Restaurant'
 import * as S from './styles'
 
-import bannerImg from '../../assets/images/hioki_sushi.png'
-
-const Banner = () => {
-  return (
-    <S.Image style={{ backgroundImage: `url(${bannerImg})` }}>
-      <div className="container">
-        <h2>Hioki Sushi</h2>
-        <p>Japonesa</p>
-      </div>
-    </S.Image>
-  )
+type Props = {
+  restaurants: Restaurant[]
 }
 
+const Banner = ({ restaurants }: Props) => {
+  if (restaurants) {
+    return (
+      <div>
+        {restaurants.map((restaurant) => (
+          <S.Image
+            key={restaurant.id}
+            style={{ backgroundImage: `url(${restaurant.image})` }}
+          >
+            <div className="container">
+              <h2>{restaurant.name}</h2>
+              <p>{restaurant.nationality}</p>
+            </div>
+          </S.Image>
+        ))}
+      </div>
+    )
+  }
+  return null // ou qualquer conteúdo padrão caso não haja dados
+}
 export default Banner
