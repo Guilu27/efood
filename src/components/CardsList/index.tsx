@@ -11,7 +11,7 @@ export type Props = {
 const CardsList = ({ type }: Props) => {
   const { itens } = useSelector((state: RootReducer) => state.restaurant)
 
-  function resturantfiltred() {
+  function restaurantfiltred() {
     const selectedRestaurant = itens.filter((item) => item.isSelected === true)
 
     if (selectedRestaurant.length > 0) {
@@ -21,7 +21,7 @@ const CardsList = ({ type }: Props) => {
     }
   }
 
-  const resturants = resturantfiltred()
+  const restaurants = restaurantfiltred()
 
   const renderCards = (restaurant: Restaurant) => {
     if (type === 'restaurants') {
@@ -36,7 +36,7 @@ const CardsList = ({ type }: Props) => {
   }
 
   return (
-    <CardsContainer type={type}>{resturants.map(renderCards)}</CardsContainer>
+    <CardsContainer type={type}>{restaurants.map(renderCards)}</CardsContainer>
   )
 }
 

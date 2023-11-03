@@ -1,11 +1,23 @@
-import Restaurant from '../../models/Restaurant'
+import { useSelector } from 'react-redux'
+
 import * as S from './styles'
+import { RootReducer } from '../../store'
 
-type Props = {
-  restaurants: Restaurant[]
-}
+const Banner = () => {
+  const { itens } = useSelector((state: RootReducer) => state.restaurant)
 
-const Banner = ({ restaurants }: Props) => {
+  function restaurantfiltred() {
+    const selectedRestaurant = itens.filter((item) => item.isSelected === true)
+
+    if (selectedRestaurant.length > 0) {
+      return selectedRestaurant
+    } else {
+      return itens
+    }
+  }
+
+  const restaurants = restaurantfiltred()
+
   if (restaurants) {
     return (
       <div>
@@ -23,6 +35,6 @@ const Banner = ({ restaurants }: Props) => {
       </div>
     )
   }
-  return null // ou qualquer conteúdo padrão caso não haja dados
+  return null
 }
 export default Banner
