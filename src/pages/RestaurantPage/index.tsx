@@ -101,7 +101,7 @@ const RestaurantPage = () => {
       <Header type="restaurant" />
       <Banner restaurants={restaurants} />
       <div className="container">
-        <CardsList type="foods" restaurants={restaurants} />
+        <CardsList type="foods" />
       </div>
     </div>
   )

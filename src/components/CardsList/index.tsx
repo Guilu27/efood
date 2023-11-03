@@ -1,37 +1,42 @@
+import { useSelector } from 'react-redux'
 import Restaurant from '../../models/Restaurant'
 import Card from '../Card'
 import { CardsContainer } from './styles'
+import { RootReducer } from '../../store'
 
 export type Props = {
   type: 'restaurants' | 'foods'
-  restaurants: Restaurant[]
 }
 
-const CardsList = ({ type, restaurants }: Props) => {
-  const renderCards = (restaurant: Restaurant) => {
-    const commonProps = {
-      type,
-      tags: restaurant.tags,
-      nationality: restaurant.nationality,
-      image: restaurant.image,
-      name: restaurant.name,
-      rate: restaurant.rate,
-      description: restaurant.description,
-      id: restaurant.id,
-      isSelected: restaurant.isSelected
-    }
+const CardsList = ({ type }: Props) => {
+  const { itens } = useSelector((state: RootReducer) => state.restaurant)
 
+  function resturantfiltred() {
+    const selectedRestaurant = itens.filter((item) => item.isSelected === true)
+
+    if (selectedRestaurant.length > 0) {
+      return selectedRestaurant
+    } else {
+      return itens
+    }
+  }
+
+  const resturants = resturantfiltred()
+
+  const renderCards = (restaurant: Restaurant) => {
     if (type === 'restaurants') {
-      return <Card key={restaurant.id} {...commonProps} />
+      return (
+        <Card key={restaurant.id} restaurant={restaurant} type="restaurants" />
+      )
     } else if (restaurant.foods && restaurant.id) {
       return restaurant.foods.map((food) => (
-        <Card key={food.id} food={food} {...commonProps} />
+        <Card key={food.id} food={food} restaurant={restaurant} type="foods" />
       ))
     }
   }
 
   return (
-    <CardsContainer type={type}>{restaurants.map(renderCards)}</CardsContainer>
+    <CardsContainer type={type}>{resturants.map(renderCards)}</CardsContainer>
   )
 }
 

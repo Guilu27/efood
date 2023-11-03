@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { Link } from 'react-router-dom'
 
 import Background from '../../assets/images/header_background.svg'
 import { colors } from '../../styles'
@@ -23,15 +22,17 @@ export const HeaderContainer = styled.header<Props>`
           grid-column: 2;
           grid-row: 1;
         }
-        ${HeaderLink} {
-          grid-column: 1;
-          grid-row: 1;
-        }
         ${HeaderButton} {
           grid-column: 3;
           grid-row: 1;
           display: flex;
           justify-content: end;
+        }
+        .restaurantsButton {
+          grid-column: 1;
+          grid-row: 1;
+          display: flex;
+          justify-content: flex-start;
         }
       }
     `}
@@ -45,8 +46,7 @@ export const Text = styled.h2`
   font-weight: 900;
   margin-top: 8.5rem;
 `
-
-const buttonStyles = css`
+export const HeaderButton = styled.button`
   font-size: 1.125rem;
   font-weight: 900;
   cursor: pointer;
@@ -58,11 +58,4 @@ const buttonStyles = css`
   &:hover {
     text-decoration: underline;
   }
-`
-
-export const HeaderLink = styled(Link)`
-  ${buttonStyles}
-`
-export const HeaderButton = styled.button`
-  ${buttonStyles}
 `

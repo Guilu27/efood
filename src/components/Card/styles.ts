@@ -6,18 +6,7 @@ import { Props } from '.'
 import { ButtonContainer } from '../Button/styles'
 
 export const CardContainer = styled.div<
-  Omit<
-    Props,
-    | 'tags'
-    | 'nationality'
-    | 'image'
-    | 'name'
-    | 'rate'
-    | 'description'
-    | 'food'
-    | 'id'
-    | 'isSelected'
-  >
+  Omit<Props, 'tags' | 'restaurant' | 'food'>
 >`
   display: flex;
   flex-direction: column-reverse;
