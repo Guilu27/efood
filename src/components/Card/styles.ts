@@ -4,6 +4,7 @@ import { colors } from '../../styles'
 import { Props } from '.'
 
 import { ButtonContainer } from '../Button/styles'
+import { TagContainer } from '../Tag/styles'
 
 export const CardContainer = styled.div<
   Omit<Props, 'tags' | 'restaurant' | 'food'>
@@ -21,7 +22,8 @@ export const CardContainer = styled.div<
       color: ${colors.beige};
 
       ${CardDetails} {
-        padding: 0.5rem 0;
+        padding: 0;
+        padding-top: 0.5rem;
       }
 
       ${ButtonContainer} {
@@ -61,9 +63,11 @@ export const CardImage = styled.img`
 `
 export const CardTags = styled.div`
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  display: grid;
-  gap: 0.5rem;
-  grid-template-columns: auto auto;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+
+  ${TagContainer} {
+    margin-left: 0.5rem;
+  }
 `

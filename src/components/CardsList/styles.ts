@@ -23,5 +23,15 @@ export const CardsContainer = styled.main<Omit<Props, 'restaurants'>>`
       align-items: center;
       text-align: left;
       gap: 2rem;
+
+      @media (max-width: 768px) {
+        padding: 1rem 0;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @media (max-width: 570px) {
+        padding: 1rem 0;
+        grid-template-columns: 1fr;
+      }
     `}
 `
