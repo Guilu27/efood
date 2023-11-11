@@ -1,71 +1,85 @@
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 import * as S from './styles'
 import Tag from '../Tag'
 import Star from '../../assets/images/star.svg'
 import Button from '../Button'
 
-import Restaurant from '../../models/Restaurant'
-import Food from '../../models/Food'
+import { MenuItem, Restaurant } from '../../pages/Home'
+import Modal from '../Modal'
 
 export type Props = {
   type: 'restaurants' | 'foods'
   restaurant: Restaurant
-  food?: Food
+  menuItem?: MenuItem
 }
 
-const Card = ({ type, restaurant, food }: Props) => {
+const Card = ({ type, restaurant, menuItem }: Props) => {
   const isRestaurant = type === 'restaurants'
   const navigate = useNavigate()
 
-  const formattedRestaurantName = restaurant.name
-    .trim()
-    .toLowerCase()
-    .replace(/ /g, '_')
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const renderTags = (
     <>
       <S.CardTags>
-        {restaurant.tags.map((tag, index) => (
-          <Tag key={index}>{tag}</Tag>
-        ))}
-        <Tag>{restaurant.nationality}</Tag>
+        {restaurant.destacado && <Tag>Destaque da semana</Tag>}
+        <Tag>{restaurant.tipo}</Tag>
       </S.CardTags>
       <S.CardInfo>
-        <p>{restaurant.rate}</p>
+        <p>{restaurant.avaliacao}</p>
         <img src={Star} alt="estrela amarela" />
       </S.CardInfo>
     </>
   )
 
-  const renderButtonTitle = isRestaurant
-    ? 'Saiba mais'
-    : 'Adicionar ao carrinho'
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible)
+  }
+
+  const handleButtonClick = () => {
+    if (type === 'restaurants') {
+      navigate(`/restaurant/${restaurant.id}`)
+    } else if (type === 'foods') {
+      toggleModal()
+    }
+  }
+
+  const renderButtonTitle = isRestaurant ? 'Saiba mais' : 'Mais detalhes'
 
   return (
-    <S.CardContainer type={type}>
-      <S.CardDetails>
-        <S.CardInfo>
-          <S.CardTitle>
-            {isRestaurant ? restaurant.name : food?.name}
-          </S.CardTitle>
-          {isRestaurant && renderTags}
-        </S.CardInfo>
-
-        <S.CardDescription>
-          {isRestaurant ? restaurant.description : food?.description}
-        </S.CardDescription>
-
-        <Button
-          title={renderButtonTitle}
-          onClick={() => navigate(`/restaurant/${formattedRestaurantName}`)}
-        >
-          {renderButtonTitle}
-        </Button>
-      </S.CardDetails>
-
-      <S.CardImage src={isRestaurant ? restaurant.image : food?.image} alt="" />
-    </S.CardContainer>
+    <div>
+      <S.CardContainer type={type}>
+        <S.CardDetails>
+          <S.CardInfo>
+            <S.CardTitle>
+              {isRestaurant ? restaurant.titulo : menuItem?.nome}
+            </S.CardTitle>
+            {isRestaurant && renderTags}
+          </S.CardInfo>
+          <S.CardDescription>
+            {isRestaurant ? restaurant.descricao : menuItem?.descricao}
+          </S.CardDescription>
+          <Button
+            title={renderButtonTitle}
+            onClick={handleButtonClick}
+            variant={type === 'restaurants' ? 'secondary' : 'primary'}
+          >
+            {renderButtonTitle}
+          </Button>
+        </S.CardDetails>
+        <S.CardImage
+          src={isRestaurant ? restaurant.capa : menuItem?.foto}
+          alt=""
+        />
+      </S.CardContainer>
+      <Modal
+        isVisible={isModalVisible}
+        onClose={toggleModal}
+        menuItem={menuItem}
+      />
+    </div>
   )
 }
 

@@ -28,8 +28,6 @@ export const CardContainer = styled.div<
 
       ${ButtonContainer} {
         width: 100%;
-        color: ${colors.red};
-        background-color: ${colors.beige};
       }
     `}
 `

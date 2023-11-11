@@ -20,7 +20,7 @@ export const CardsContainer = styled.main<Omit<Props, 'restaurants'>>`
     props.type === 'foods' &&
     css`
       grid-template-columns: repeat(3, 1fr);
-      align-items: center;
+      align-items: start;
       text-align: left;
       gap: 2rem;
 

@@ -1,40 +1,29 @@
-import { useSelector } from 'react-redux'
-
+import { Restaurant } from '../../pages/Home'
 import * as S from './styles'
-import { RootReducer } from '../../store'
 
-const Banner = () => {
-  const { itens } = useSelector((state: RootReducer) => state.restaurant)
+type Props = {
+  restaurant: Restaurant[]
+}
 
-  function restaurantfiltred() {
-    const selectedRestaurant = itens.filter((item) => item.isSelected === true)
-
-    if (selectedRestaurant.length > 0) {
-      return selectedRestaurant
-    } else {
-      return itens
-    }
+const Banner = ({ restaurant }: Props) => {
+  if (!restaurant || restaurant.length === 0) {
+    return null
   }
 
-  const restaurants = restaurantfiltred()
-
-  if (restaurants) {
-    return (
-      <div>
-        {restaurants.map((restaurant) => (
-          <S.Image
-            key={restaurant.id}
-            style={{ backgroundImage: `url(${restaurant.image})` }}
-          >
-            <div className="container">
-              <h2>{restaurant.name}</h2>
-              <p>{restaurant.nationality}</p>
-            </div>
-          </S.Image>
-        ))}
-      </div>
-    )
-  }
-  return null
+  return (
+    <div>
+      {restaurant.map((restaurant) => (
+        <S.Image
+          key={restaurant.id}
+          style={{ backgroundImage: `url(${restaurant.capa})` }}
+        >
+          <div className="container">
+            <h2>{restaurant.titulo}</h2>
+            <p>{restaurant.tipo}</p>
+          </div>
+        </S.Image>
+      ))}
+    </div>
+  )
 }
 export default Banner
