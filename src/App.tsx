@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import { GlobalCss } from './styles'
 import SiteRoutes from './routes'
 import { store } from './store'
+import Cart from './components/Cart'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <GlobalCss />
         <SiteRoutes />
         <Footer />
+        <Cart />
       </BrowserRouter>
     </Provider>
   )
