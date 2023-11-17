@@ -1,17 +1,21 @@
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
 import Footer from './components/Footer'
 
 import { GlobalCss } from './styles'
 import SiteRoutes from './routes'
+import { store } from './store'
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalCss />
-      <SiteRoutes />
-      <Footer />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalCss />
+        <SiteRoutes />
+        <Footer />
+      </BrowserRouter>
+    </Provider>
   )
 }
 
