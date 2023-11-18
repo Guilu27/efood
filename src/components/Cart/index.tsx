@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Button from '../Button'
 import * as S from './styles'
 import { RootReducer } from '../../store'
-import { close } from '../../store/reducers/cart'
+import { close, remove } from '../../store/reducers/cart'
 import { PriceFormatter } from '../Modal'
 
 const Cart = () => {
@@ -13,6 +13,10 @@ const Cart = () => {
 
   const closeCart = () => {
     dispatch(close())
+  }
+
+  const removeItem = (id: number) => {
+    dispatch(remove(id))
   }
 
   return (
@@ -27,7 +31,7 @@ const Cart = () => {
                 <span>{PriceFormatter(item.preco)}</span>
               </div>
               <img src={item.foto} />
-              <button />
+              <button onClick={() => removeItem(item.id)} />
             </S.CartItem>
           ))}
         </ul>
