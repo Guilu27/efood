@@ -1,10 +1,22 @@
+import { useDispatch, useSelector } from 'react-redux'
+
 import Button from '../Button'
 import * as S from './styles'
+import { RootReducer } from '../../store'
+import { close } from '../../store/reducers/cart'
 
 const Cart = () => {
+  const { isOpen } = useSelector((state: RootReducer) => state.cart)
+
+  const dispatch = useDispatch()
+
+  const closeCart = () => {
+    dispatch(close())
+  }
+
   return (
-    <S.CartContainer>
-      <S.Overlay></S.Overlay>
+    <S.CartContainer className={isOpen ? 'is-open' : ''}>
+      <S.Overlay onClick={closeCart}></S.Overlay>
       <S.Sidebar>
         <ul>
           <S.CartItem>
@@ -29,6 +41,7 @@ const Cart = () => {
           <span>R$ 182,70</span>
         </S.TotalValue>
         <Button title="Continuar com a entrega">Continuar com a entrega</Button>
+        <button onClick={closeCart} />
       </S.Sidebar>
     </S.CartContainer>
   )

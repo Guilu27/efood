@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 import trash from '../../assets/images/trash_can.svg'
+import close from '../../assets/images/close.svg'
 
 export const CartContainer = styled.div`
   position: fixed;
@@ -9,9 +10,13 @@ export const CartContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
+  display: none;
   justify-content: flex-end;
   z-index: 1;
+
+  &.is-open {
+    display: flex;
+  }
 `
 
 export const Overlay = styled.div`
@@ -39,6 +44,18 @@ export const Sidebar = styled.aside`
 
   ${ButtonContainer} {
     width: 100%;
+  }
+
+  > button:last-child {
+    background-image: url(${close});
+    width: 1rem;
+    height: 1rem;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
   }
 `
 
