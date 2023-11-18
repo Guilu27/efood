@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux'
+
 import Button from '../Button'
 import * as S from './styles'
 
 import Close from '../../assets/images/close.svg'
 import { MenuItem } from '../../pages/Home'
+import { open, add } from '../../store/reducers/cart'
 
 export type Props = {
   isVisible: boolean
@@ -18,6 +21,15 @@ const Modal = ({ isVisible, onClose, menuItem }: Props) => {
     }).format(preco)
   }
 
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    if (menuItem) {
+      dispatch(add(menuItem))
+    }
+    dispatch(open())
+  }
+
   return (
     <S.ModalContainer className={isVisible ? 'visible' : ''}>
       <S.ModalContent className="container">
@@ -28,7 +40,7 @@ const Modal = ({ isVisible, onClose, menuItem }: Props) => {
           </p>
           <img src={Close} alt="fechar modal" onClick={onClose} />
 
-          <Button title="Adicionar ao carrinho">
+          <Button title="Adicionar ao carrinho" onClick={addToCart}>
             Adicionar ao carrinho - {PriceFormatter(menuItem?.preco)}
           </Button>
         </S.FoodDetails>
