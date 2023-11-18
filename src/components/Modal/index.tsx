@@ -28,6 +28,7 @@ const Modal = ({ isVisible, onClose, menuItem }: Props) => {
       dispatch(add(menuItem))
     }
     dispatch(open())
+    onClose()
   }
 
   return (
