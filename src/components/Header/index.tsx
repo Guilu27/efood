@@ -1,15 +1,18 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Logo from '../../assets/images/logo.svg'
 import * as S from './style'
 import { open } from '../../store/reducers/cart'
+import { RootReducer } from '../../store'
 
 export type Props = {
   type: 'main' | 'restaurant'
 }
 
 const Header = ({ type }: Props) => {
+  const { items } = useSelector((state: RootReducer) => state.cart)
+
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -42,7 +45,7 @@ const Header = ({ type }: Props) => {
         Restaurantes
       </S.HeaderButton>
       <S.HeaderButton onClick={openCart}>
-        0 produto(s) no carrinho
+        {items.length} produto(s) no carrinho
       </S.HeaderButton>
     </div>
   )
