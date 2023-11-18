@@ -19,6 +19,12 @@ const Cart = () => {
     dispatch(remove(id))
   }
 
+  const getTotalPrice = () => {
+    return items.reduce((sum, currentPrice) => {
+      return (sum += currentPrice.preco!)
+    }, 0)
+  }
+
   return (
     <S.CartContainer className={isOpen ? 'is-open' : ''}>
       <S.Overlay onClick={closeCart}></S.Overlay>
@@ -37,7 +43,7 @@ const Cart = () => {
         </ul>
         <S.TotalValue>
           <p>Valor Total</p>
-          <span>R$ 182,70</span>
+          <span>{PriceFormatter(getTotalPrice())}</span>
         </S.TotalValue>
         <Button title="Continuar com a entrega">Continuar com a entrega</Button>
         <button onClick={closeCart} />
