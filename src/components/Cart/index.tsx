@@ -4,9 +4,10 @@ import Button from '../Button'
 import * as S from './styles'
 import { RootReducer } from '../../store'
 import { close } from '../../store/reducers/cart'
+import { PriceFormatter } from '../Modal'
 
 const Cart = () => {
-  const { isOpen } = useSelector((state: RootReducer) => state.cart)
+  const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
 
   const dispatch = useDispatch()
 
@@ -19,22 +20,16 @@ const Cart = () => {
       <S.Overlay onClick={closeCart}></S.Overlay>
       <S.Sidebar>
         <ul>
-          <S.CartItem>
-            <div>
-              <h3>Pizza Marguerita</h3>
-              <span>R$ 60,90</span>
-            </div>
-            <img src="https://cloudfront-us-east-1.images.arcpublishing.com/estadao/YANRMY3TBZGWBCM2UDY6LEZJMA.jpg" />
-            <button />
-          </S.CartItem>
-          <S.CartItem>
-            <div>
-              <h3>Pizza Marguerita</h3>
-              <span>R$ 60,90</span>
-            </div>
-            <img src="https://cloudfront-us-east-1.images.arcpublishing.com/estadao/YANRMY3TBZGWBCM2UDY6LEZJMA.jpg" />
-            <button />
-          </S.CartItem>
+          {items.map((item) => (
+            <S.CartItem key={item.id}>
+              <div>
+                <h3>{item.nome}</h3>
+                <span>{PriceFormatter(item.preco)}</span>
+              </div>
+              <img src={item.foto} />
+              <button />
+            </S.CartItem>
+          ))}
         </ul>
         <S.TotalValue>
           <p>Valor Total</p>

@@ -13,14 +13,14 @@ export type Props = {
   menuItem?: MenuItem
 }
 
-const Modal = ({ isVisible, onClose, menuItem }: Props) => {
-  const PriceFormatter = (preco = 0) => {
-    return new Intl.NumberFormat('pt-br', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
-  }
+export const PriceFormatter = (preco = 0) => {
+  return new Intl.NumberFormat('pt-br', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(preco)
+}
 
+const Modal = ({ isVisible, onClose, menuItem }: Props) => {
   const dispatch = useDispatch()
 
   const addToCart = () => {

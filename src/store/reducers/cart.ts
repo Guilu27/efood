@@ -24,8 +24,6 @@ const cartSlice = createSlice({
     add: (state, action: PayloadAction<MenuItem>) => {
       const menuItem = state.items.find((item) => item.id === action.payload.id)
 
-      console.log('menuItem:' + menuItem)
-
       if (!menuItem) {
         state.items.push(action.payload)
       } else {
