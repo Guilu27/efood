@@ -1,21 +1,16 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Button from '../Button'
 import * as S from './styles'
 import { RootReducer } from '../../store'
-import { close, remove } from '../../store/reducers/cart'
+import { changeStep, close, remove } from '../../store/reducers/cart'
 import { PriceFormatter, getTotalPrice } from '../../utils'
 
 const Cart = () => {
-  const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
+  const { isOpen, items, currentStep } = useSelector(
+    (state: RootReducer) => state.cart
+  )
   const dispatch = useDispatch()
-
-  const [currentStep, setCurrentStep] = useState(1)
-
-  const goToDelivery = () => setCurrentStep(2)
-  const goToPayment = () => setCurrentStep(3)
-  const goToCart = () => setCurrentStep(1)
 
   const closeCart = () => {
     dispatch(close())
@@ -23,6 +18,10 @@ const Cart = () => {
 
   const removeItem = (id: number) => {
     dispatch(remove(id))
+  }
+
+  const changeCurrentStep = (step: number) => {
+    dispatch(changeStep(step))
   }
 
   return (
@@ -47,7 +46,10 @@ const Cart = () => {
               <p>Valor Total</p>
               <span>{PriceFormatter(getTotalPrice(items))}</span>
             </S.TotalValue>
-            <Button title="Continuar com a entrega" onClick={goToDelivery}>
+            <Button
+              title="Continuar com a entrega"
+              onClick={() => changeCurrentStep(2)}
+            >
               Continuar com a entrega
             </Button>
           </>
@@ -94,10 +96,16 @@ const Cart = () => {
                 </S.Row>
               </div>
 
-              <Button title="Continuar com o pagamento" onClick={goToPayment}>
+              <Button
+                title="Continuar com o pagamento"
+                onClick={() => changeCurrentStep(3)}
+              >
                 Continuar com o pagamento
               </Button>
-              <Button title="Voltar para o carrinho" onClick={goToCart}>
+              <Button
+                title="Voltar para o carrinho"
+                onClick={() => changeCurrentStep(1)}
+              >
                 Voltar para o carrinho
               </Button>
             </S.Form>
@@ -107,7 +115,10 @@ const Cart = () => {
         {currentStep === 3 && (
           <>
             <S.Form>
-              <h2>Pagamento - Valor a pagar R$ 190,90</h2>
+              <h2>
+                Pagamento - Valor a pagar
+                <span> {PriceFormatter(getTotalPrice(items))}</span>
+              </h2>
               <div>
                 <S.Row>
                   <S.InputGroup>
@@ -120,7 +131,7 @@ const Cart = () => {
                     <label htmlFor="cardNumber">Número do cartão</label>
                     <input type="text" id="cardNumber" name="cardNumber" />
                   </S.InputGroup>
-                  <S.InputGroup>
+                  <S.InputGroup maxWidth="87px">
                     <label htmlFor="cardCode">CVV</label>
                     <input type="text" id="cardCode" name="cardCode" />
                   </S.InputGroup>
@@ -139,7 +150,7 @@ const Cart = () => {
               <Button title="Finalizar pagamento">Finalizar pagamento</Button>
               <Button
                 title="Voltar para a edição de endereço"
-                onClick={goToDelivery}
+                onClick={() => changeCurrentStep(2)}
               >
                 Voltar para a edição de endereço
               </Button>

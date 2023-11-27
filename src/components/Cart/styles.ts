@@ -4,6 +4,10 @@ import { ButtonContainer } from '../Button/styles'
 import trash from '../../assets/images/trash_can.svg'
 import close from '../../assets/images/close.svg'
 
+type InputGroupProps = {
+  maxWidth?: string
+}
+
 export const CartContainer = styled.div`
   position: fixed;
   top: 0;
@@ -133,8 +137,10 @@ export const Row = styled.div`
   margin-bottom: 0.5rem;
 `
 
-export const InputGroup = styled.div`
+export const InputGroup = styled.div<InputGroupProps>`
   flex: auto;
+  max-width: ${(props) => props.maxWidth || 'auto'};
+
   input {
     color: ${colors.gray};
     font-size: 0.875rem;

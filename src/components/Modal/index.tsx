@@ -4,7 +4,7 @@ import Button from '../Button'
 import * as S from './styles'
 
 import Close from '../../assets/images/close.svg'
-import { open, add } from '../../store/reducers/cart'
+import { open, add, changeStep } from '../../store/reducers/cart'
 import { PriceFormatter } from '../../utils'
 
 export type Props = {
@@ -21,6 +21,7 @@ const Modal = ({ isVisible, onClose, menuItem }: Props) => {
       dispatch(add(menuItem))
     }
     dispatch(open())
+    dispatch(changeStep(1))
     onClose()
   }
 
