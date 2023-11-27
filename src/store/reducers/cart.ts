@@ -3,11 +3,13 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 type CartState = {
   items: MenuItem[]
   isOpen: boolean
+  currentStep: number
 }
 
 const initialState: CartState = {
   items: [],
-  isOpen: false
+  isOpen: false,
+  currentStep: 1
 }
 
 const cartSlice = createSlice({
@@ -31,9 +33,12 @@ const cartSlice = createSlice({
     },
     remove: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.id !== action.payload)
+    },
+    changeStep: (state, action: PayloadAction<number>) => {
+      state.currentStep = action.payload
     }
   }
 })
 
-export const { close, open, add, remove } = cartSlice.actions
+export const { close, open, add, remove, changeStep } = cartSlice.actions
 export default cartSlice.reducer
