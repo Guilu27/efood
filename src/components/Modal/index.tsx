@@ -5,18 +5,12 @@ import * as S from './styles'
 
 import Close from '../../assets/images/close.svg'
 import { open, add } from '../../store/reducers/cart'
+import { PriceFormatter } from '../../utils'
 
 export type Props = {
   isVisible: boolean
   onClose: () => void
   menuItem?: MenuItem
-}
-
-export const PriceFormatter = (preco = 0) => {
-  return new Intl.NumberFormat('pt-br', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(preco)
 }
 
 const Modal = ({ isVisible, onClose, menuItem }: Props) => {

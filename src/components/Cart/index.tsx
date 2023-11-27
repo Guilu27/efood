@@ -4,7 +4,7 @@ import Button from '../Button'
 import * as S from './styles'
 import { RootReducer } from '../../store'
 import { close, remove } from '../../store/reducers/cart'
-import { PriceFormatter } from '../Modal'
+import { PriceFormatter, getTotalPrice } from '../../utils'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
@@ -17,12 +17,6 @@ const Cart = () => {
 
   const removeItem = (id: number) => {
     dispatch(remove(id))
-  }
-
-  const getTotalPrice = () => {
-    return items.reduce((sum, currentPrice) => {
-      return (sum += currentPrice.preco!)
-    }, 0)
   }
 
   return (
@@ -43,7 +37,7 @@ const Cart = () => {
         </ul>
         <S.TotalValue>
           <p>Valor Total</p>
-          <span>{PriceFormatter(getTotalPrice())}</span>
+          <span>{PriceFormatter(getTotalPrice(items))}</span>
         </S.TotalValue>
         <Button title="Continuar com a entrega">Continuar com a entrega</Button>
         <button onClick={closeCart} />
