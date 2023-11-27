@@ -6,7 +6,6 @@ import Tag from '../Tag'
 import Star from '../../assets/images/star.svg'
 import Button from '../Button'
 
-import { MenuItem, Restaurant } from '../../pages/Home'
 import Modal from '../Modal'
 
 export type Props = {

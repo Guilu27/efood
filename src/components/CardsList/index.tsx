@@ -1,8 +1,6 @@
 import Card from '../Card'
 import { CardsContainer } from './styles'
 
-import { Restaurant } from '../../pages/Home'
-
 export type Props = {
   type: 'restaurants' | 'foods'
   restaurants: Restaurant[]

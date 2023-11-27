@@ -4,7 +4,6 @@ import Button from '../Button'
 import * as S from './styles'
 
 import Close from '../../assets/images/close.svg'
-import { MenuItem } from '../../pages/Home'
 import { open, add } from '../../store/reducers/cart'
 
 export type Props = {
