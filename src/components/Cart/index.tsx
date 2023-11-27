@@ -40,7 +40,86 @@ const Cart = () => {
           <span>{PriceFormatter(getTotalPrice(items))}</span>
         </S.TotalValue>
         <Button title="Continuar com a entrega">Continuar com a entrega</Button>
-        <button onClick={closeCart} />
+
+        <S.Form>
+          <h2>Entraga</h2>
+          <div>
+            <S.Row>
+              <S.InputGroup>
+                <label htmlFor="fullName">Quem irá receber</label>
+                <input type="text" id="fullName" name="fullName" />
+              </S.InputGroup>
+            </S.Row>
+            <S.Row>
+              <S.InputGroup>
+                <label htmlFor="adress">Endereço</label>
+                <input type="text" id="adress" name="adress" />
+              </S.InputGroup>
+            </S.Row>
+            <S.Row>
+              <S.InputGroup>
+                <label htmlFor="city">Cidade</label>
+                <input type="text" id="city" name="city" />
+              </S.InputGroup>
+            </S.Row>
+            <S.Row>
+              <S.InputGroup>
+                <label htmlFor="CEP">CEP</label>
+                <input type="text" id="CEP" name="CEP" />
+              </S.InputGroup>
+              <S.InputGroup>
+                <label htmlFor="HouseNumber">Número</label>
+                <input type="text" id="HouseNumber" name="HouseNumber" />
+              </S.InputGroup>
+            </S.Row>
+            <S.Row>
+              <S.InputGroup>
+                <label htmlFor="complement">Complemento (opcional)</label>
+                <input type="text" id="complement" name="complement" />
+              </S.InputGroup>
+            </S.Row>
+          </div>
+
+          <Button title="Continuar com o pagamento">
+            Continuar com o pagamento
+          </Button>
+          <Button title="Voltar para o carrinho">Voltar para o carrinho</Button>
+        </S.Form>
+
+        <S.Form>
+          <h2>Pagamento - Valor a pagar R$ 190,90</h2>
+          <S.Row>
+            <S.InputGroup>
+              <label htmlFor="cardOwner">Nome no cartão</label>
+              <input type="text" id="cardOwner" name="cardOwner" />
+            </S.InputGroup>
+          </S.Row>
+          <S.Row>
+            <S.InputGroup>
+              <label htmlFor="cardNumber">Número do cartão</label>
+              <input type="text" id="cardNumber" name="cardNumber" />
+            </S.InputGroup>
+            <S.InputGroup>
+              <label htmlFor="cardCode">CVV</label>
+              <input type="text" id="cardCode" name="cardCode" />
+            </S.InputGroup>
+          </S.Row>
+          <S.Row>
+            <S.InputGroup>
+              <label htmlFor="expiresMonth">Mês de vencimento</label>
+              <input type="text" id="expiresMonth" name="expiresMonth" />
+            </S.InputGroup>
+            <S.InputGroup>
+              <label htmlFor="expiresYear">Ano de vencimento</label>
+              <input type="text" id="expiresYear" name="expiresYear" />
+            </S.InputGroup>
+          </S.Row>
+          <Button title="Finalizar pagamento">Finalizar pagamento</Button>
+          <Button title="Voltar para a edição de endereço">
+            Voltar para a edição de endereço
+          </Button>
+        </S.Form>
+        <S.CartCloseButton onClick={closeCart} />
       </S.Sidebar>
     </S.CartContainer>
   )

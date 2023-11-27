@@ -45,18 +45,18 @@ export const Sidebar = styled.aside`
   ${ButtonContainer} {
     width: 100%;
   }
+`
 
-  > button:last-child {
-    background-image: url(${close});
-    width: 1rem;
-    height: 1rem;
-    border: none;
-    background-color: transparent;
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    cursor: pointer;
-  }
+export const CartCloseButton = styled.button`
+  background-image: url(${close});
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
 `
 
 export const CartItem = styled.li`
@@ -108,4 +108,47 @@ export const TotalValue = styled.div`
   font-size: 0.875rem;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
+`
+export const Form = styled.form`
+  width: 100%;
+  h2 {
+    color: ${colors.beige};
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  ${ButtonContainer} {
+    margin-bottom: 0.5rem;
+  }
+
+  > div {
+    margin-bottom: 1.5rem;
+  }
+`
+
+export const Row = styled.div`
+  display: flex;
+  column-gap: 24px;
+  margin-bottom: 0.5rem;
+`
+
+export const InputGroup = styled.div`
+  flex: auto;
+  input {
+    color: ${colors.gray};
+    font-size: 0.875rem;
+    font-weight: bold;
+    width: 100%;
+    height: 2rem;
+    background-color: ${colors.beige};
+    border: 2px solid ${colors.beige};
+  }
+
+  label {
+    color: ${colors.beige};
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
 `
