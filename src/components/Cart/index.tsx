@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 import Button from '../Button'
 import * as S from './styles'
@@ -7,6 +9,57 @@ import { changeStep, close, remove } from '../../store/reducers/cart'
 import { PriceFormatter, getTotalPrice } from '../../utils'
 
 const Cart = () => {
+  const form = useFormik({
+    initialValues: {
+      fullName: '',
+      address: '',
+      city: '',
+      cep: '',
+      houseNumber: '',
+      complement: '',
+      cardOwner: '',
+      cardNumber: '',
+      cardCode: '',
+      expiresMonth: '',
+      expiresYear: ''
+    },
+    validationSchema: Yup.object({
+      fullName: Yup.string()
+        .min(5, 'O nome precisa ter pelo menos 5 caracteres')
+        .required('o campo é obrigatório'),
+
+      address: Yup.string()
+        .min(5, 'O endereço precisa ter pelo menos 5 caracteres')
+        .required('o campo é obrigatório'),
+
+      city: Yup.string()
+        .min(5, 'O nome da cidade precisa ter pelo menos 5 caracteres')
+        .required('o campo é obrigatório'),
+
+      cep: Yup.string()
+        .min(9, 'CEP invalido')
+        .max(9, 'CEP invalido')
+        .required('o campo é obrigatório'),
+
+      houseNumber: Yup.number().required('o campo é obrigatório'),
+
+      complement: Yup.string(),
+
+      cardOwner: Yup.string().required('o campo é obrigatório'),
+
+      cardNumber: Yup.string().required('o campo é obrigatório'),
+
+      cardCode: Yup.string().required('o campo é obrigatório'),
+
+      expiresMonth: Yup.string().required('o campo é obrigatório'),
+
+      expiresYear: Yup.string().required('o campo é obrigatório')
+    }),
+    onSubmit: (values) => {
+      console.log(values)
+    }
+  })
+
   const { isOpen, items, currentStep } = useSelector(
     (state: RootReducer) => state.cart
   )
@@ -56,7 +109,7 @@ const Cart = () => {
                 </Button>
               </>
             ) : (
-              <S.Form>
+              <S.Form onSubmit={form.handleSubmit}>
                 {currentStep === 2 ? (
                   <>
                     <h2>Entraga</h2>
@@ -64,32 +117,63 @@ const Cart = () => {
                       <S.Row>
                         <S.InputGroup>
                           <label htmlFor="fullName">Quem irá receber</label>
-                          <input type="text" id="fullName" name="fullName" />
+                          <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.fullName}
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                          />
                         </S.InputGroup>
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="adress">Endereço</label>
-                          <input type="text" id="adress" name="adress" />
+                          <label htmlFor="address">Endereço</label>
+                          <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.address}
+                            type="text"
+                            id="address"
+                            name="address"
+                          />
                         </S.InputGroup>
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
                           <label htmlFor="city">Cidade</label>
-                          <input type="text" id="city" name="city" />
+                          <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.city}
+                            type="text"
+                            id="city"
+                            name="city"
+                          />
                         </S.InputGroup>
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="CEP">CEP</label>
-                          <input type="text" id="CEP" name="CEP" />
+                          <label htmlFor="cep">CEP</label>
+                          <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.cep}
+                            type="text"
+                            id="cep"
+                            name="cep"
+                          />
                         </S.InputGroup>
                         <S.InputGroup>
-                          <label htmlFor="HouseNumber">Número</label>
+                          <label htmlFor="houseNumber">Número</label>
                           <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.houseNumber}
                             type="text"
-                            id="HouseNumber"
-                            name="HouseNumber"
+                            id="houseNumber"
+                            name="houseNumber"
                           />
                         </S.InputGroup>
                       </S.Row>
@@ -99,6 +183,9 @@ const Cart = () => {
                             Complemento (opcional)
                           </label>
                           <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.complement}
                             type="text"
                             id="complement"
                             name="complement"
@@ -130,13 +217,23 @@ const Cart = () => {
                       <S.Row>
                         <S.InputGroup>
                           <label htmlFor="cardOwner">Nome no cartão</label>
-                          <input type="text" id="cardOwner" name="cardOwner" />
+                          <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.cardOwner}
+                            type="text"
+                            id="cardOwner"
+                            name="cardOwner"
+                          />
                         </S.InputGroup>
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
                           <label htmlFor="cardNumber">Número do cartão</label>
                           <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.cardNumber}
                             type="text"
                             id="cardNumber"
                             name="cardNumber"
@@ -144,7 +241,14 @@ const Cart = () => {
                         </S.InputGroup>
                         <S.InputGroup maxWidth="87px">
                           <label htmlFor="cardCode">CVV</label>
-                          <input type="text" id="cardCode" name="cardCode" />
+                          <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.cardCode}
+                            type="text"
+                            id="cardCode"
+                            name="cardCode"
+                          />
                         </S.InputGroup>
                       </S.Row>
                       <S.Row>
@@ -153,6 +257,9 @@ const Cart = () => {
                             Mês de vencimento
                           </label>
                           <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.expiresMonth}
                             type="text"
                             id="expiresMonth"
                             name="expiresMonth"
@@ -161,6 +268,9 @@ const Cart = () => {
                         <S.InputGroup>
                           <label htmlFor="expiresYear">Ano de vencimento</label>
                           <input
+                            onBlur={form.handleBlur}
+                            onChange={form.handleChange}
+                            value={form.values.expiresYear}
                             type="text"
                             id="expiresYear"
                             name="expiresYear"
