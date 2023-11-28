@@ -25,40 +25,48 @@ const Cart = () => {
     },
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .min(5, 'O nome precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório'),
+        .min(5, 'pelo menos 5 caracteres')
+        .required('obrigatório'),
 
       address: Yup.string()
-        .min(5, 'O endereço precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório'),
+        .min(5, 'pelo menos 5 caracteres')
+        .required('obrigatório'),
 
       city: Yup.string()
-        .min(5, 'O nome da cidade precisa ter pelo menos 5 caracteres')
-        .required('o campo é obrigatório'),
+        .min(5, 'pelo menos 5 caracteres')
+        .required('obrigatório'),
 
       cep: Yup.string()
         .min(9, 'CEP invalido')
         .max(9, 'CEP invalido')
-        .required('o campo é obrigatório'),
+        .required('obrigatório'),
 
-      houseNumber: Yup.number().required('o campo é obrigatório'),
+      houseNumber: Yup.number().required('obrigatório'),
 
       complement: Yup.string(),
 
-      cardOwner: Yup.string().required('o campo é obrigatório'),
+      cardOwner: Yup.string().required('obrigatório'),
 
-      cardNumber: Yup.string().required('o campo é obrigatório'),
+      cardNumber: Yup.string().required('obrigatório'),
 
-      cardCode: Yup.string().required('o campo é obrigatório'),
+      cardCode: Yup.string().required('obrigatório'),
 
-      expiresMonth: Yup.string().required('o campo é obrigatório'),
+      expiresMonth: Yup.string().required('obrigatório'),
 
-      expiresYear: Yup.string().required('o campo é obrigatório')
+      expiresYear: Yup.string().required('obrigatório')
     }),
     onSubmit: (values) => {
       console.log(values)
     }
   })
+
+  const getErrorMessage = (fieldName: string, message?: string) => {
+    const isTouched = fieldName in form.touched
+    const hasError = fieldName in form.errors
+
+    if (isTouched && hasError) return ` (${message})`
+    return ''
+  }
 
   const { isOpen, items, currentStep } = useSelector(
     (state: RootReducer) => state.cart
@@ -116,7 +124,15 @@ const Cart = () => {
                     <div>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="fullName">Quem irá receber</label>
+                          <label htmlFor="fullName">
+                            Quem irá receber
+                            <span>
+                              {getErrorMessage(
+                                'fullName',
+                                form.errors.fullName
+                              )}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -129,7 +145,12 @@ const Cart = () => {
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="address">Endereço</label>
+                          <label htmlFor="address">
+                            Endereço
+                            <span>
+                              {getErrorMessage('address', form.errors.address)}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -142,7 +163,12 @@ const Cart = () => {
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="city">Cidade</label>
+                          <label htmlFor="city">
+                            Cidade
+                            <span>
+                              {getErrorMessage('city', form.errors.city)}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -155,7 +181,12 @@ const Cart = () => {
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="cep">CEP</label>
+                          <label htmlFor="cep">
+                            CEP
+                            <span>
+                              {getErrorMessage('cep', form.errors.cep)}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -166,7 +197,15 @@ const Cart = () => {
                           />
                         </S.InputGroup>
                         <S.InputGroup>
-                          <label htmlFor="houseNumber">Número</label>
+                          <label htmlFor="houseNumber">
+                            Número
+                            <span>
+                              {getErrorMessage(
+                                'houseNumber',
+                                form.errors.houseNumber
+                              )}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -216,7 +255,15 @@ const Cart = () => {
                     <div>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="cardOwner">Nome no cartão</label>
+                          <label htmlFor="cardOwner">
+                            Nome no cartão
+                            <span>
+                              {getErrorMessage(
+                                'cardOwner',
+                                form.errors.cardOwner
+                              )}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -229,7 +276,15 @@ const Cart = () => {
                       </S.Row>
                       <S.Row>
                         <S.InputGroup>
-                          <label htmlFor="cardNumber">Número do cartão</label>
+                          <label htmlFor="cardNumber">
+                            Número do cartão
+                            <span>
+                              {getErrorMessage(
+                                'cardNumber',
+                                form.errors.cardNumber
+                              )}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -240,7 +295,15 @@ const Cart = () => {
                           />
                         </S.InputGroup>
                         <S.InputGroup maxWidth="87px">
-                          <label htmlFor="cardCode">CVV</label>
+                          <label htmlFor="cardCode">
+                            CVV
+                            <span>
+                              {getErrorMessage(
+                                'cardCode',
+                                form.errors.cardCode
+                              )}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -255,6 +318,12 @@ const Cart = () => {
                         <S.InputGroup>
                           <label htmlFor="expiresMonth">
                             Mês de vencimento
+                            <span>
+                              {getErrorMessage(
+                                'expiresMonth',
+                                form.errors.expiresMonth
+                              )}
+                            </span>
                           </label>
                           <input
                             onBlur={form.handleBlur}
@@ -266,7 +335,15 @@ const Cart = () => {
                           />
                         </S.InputGroup>
                         <S.InputGroup>
-                          <label htmlFor="expiresYear">Ano de vencimento</label>
+                          <label htmlFor="expiresYear">
+                            Ano de vencimento
+                            <span>
+                              {getErrorMessage(
+                                'expiresYear',
+                                form.errors.expiresYear
+                              )}
+                            </span>
+                          </label>
                           <input
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
