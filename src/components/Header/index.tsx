@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import Logo from '../../assets/images/logo.svg'
 import * as S from './style'
-import { open } from '../../store/reducers/cart'
+import { changeStep, open } from '../../store/reducers/cart'
 import { RootReducer } from '../../store'
 
 export type Props = {
@@ -19,6 +19,7 @@ const Header = ({ type }: Props) => {
 
   const openCart = () => {
     dispatch(open())
+    dispatch(changeStep(1))
   }
 
   const renderMainHeader = () => (
