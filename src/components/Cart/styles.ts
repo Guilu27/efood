@@ -140,8 +140,9 @@ export const Form = styled.form`
 
 export const Row = styled.div`
   display: flex;
-  column-gap: 24px;
+  column-gap: 1.5rem;
   margin-bottom: 0.5rem;
+  align-items: flex-end;
 `
 
 export const InputGroup = styled.div<InputGroupProps>`
@@ -156,6 +157,11 @@ export const InputGroup = styled.div<InputGroupProps>`
     height: 2rem;
     background-color: ${colors.beige};
     border: 2px solid ${colors.beige};
+    padding-left: 0.5rem;
+
+    &.error {
+      border-color: black;
+    }
   }
 
   label {

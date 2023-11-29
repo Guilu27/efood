@@ -62,10 +62,18 @@ const Cart = () => {
 
   const getErrorMessage = (fieldName: string, message?: string) => {
     const isTouched = fieldName in form.touched
-    const hasError = fieldName in form.errors
+    const isInvalid = fieldName in form.errors
 
-    if (isTouched && hasError) return ` (${message})`
+    if (isTouched && isInvalid) return ` (${message})`
     return ''
+  }
+
+  const checkInputHasError = (fieldName: string) => {
+    const isTouched = fieldName in form.touched
+    const isInvalid = fieldName in form.errors
+    const hasError = isTouched && isInvalid
+
+    return hasError
   }
 
   const { isOpen, items, currentStep } = useSelector(
@@ -134,6 +142,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('fullName') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.fullName}
@@ -152,6 +163,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('address') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.address}
@@ -170,6 +184,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('city') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.city}
@@ -188,6 +205,7 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={checkInputHasError('cep') ? 'error' : ''}
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.cep}
@@ -207,6 +225,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('houseNumber') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.houseNumber}
@@ -265,6 +286,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('cardOwner') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.cardOwner}
@@ -286,6 +310,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('cardNumber') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.cardNumber}
@@ -305,6 +332,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('cardCode') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.cardCode}
@@ -326,6 +356,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('expiresMonth') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.expiresMonth}
@@ -345,6 +378,9 @@ const Cart = () => {
                             </span>
                           </label>
                           <input
+                            className={
+                              checkInputHasError('expiresYear') ? 'error' : ''
+                            }
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.expiresYear}
