@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useEffect, useState } from 'react'
 
 import Button from '../Button'
 import * as S from './styles'
@@ -9,6 +10,9 @@ import { changeStep, close, remove } from '../../store/reducers/cart'
 import { PriceFormatter, getTotalPrice } from '../../utils'
 
 const Cart = () => {
+  const [isAddressButtonDisabled, setIsAddressButtonDisabled] = useState(true)
+  const [isPaymentButtonDisabled, setIsPaymentButtonDisabled] = useState(true)
+
   const form = useFormik({
     initialValues: {
       fullName: '',
@@ -92,6 +96,41 @@ const Cart = () => {
   const changeCurrentStep = (step: number) => {
     dispatch(changeStep(step))
   }
+
+  useEffect(() => {
+    const checkAddressFormErrors = () => {
+      return (
+        'fullName' in form.errors ||
+        !('fullName' in form.touched) ||
+        'address' in form.errors ||
+        !('address' in form.touched) ||
+        'city' in form.errors ||
+        !('city' in form.touched) ||
+        'cep' in form.errors ||
+        !('cep' in form.touched) ||
+        'houseNumber' in form.errors ||
+        !('houseNumber' in form.touched)
+      )
+    }
+
+    const checkPaymentFormErrors = () => {
+      return (
+        'cardOwner' in form.errors ||
+        !('cardOwner' in form.touched) ||
+        'cardNumber' in form.errors ||
+        !('cardNumber' in form.touched) ||
+        'cardCode' in form.errors ||
+        !('cardCode' in form.touched) ||
+        'expiresMonth' in form.errors ||
+        !('expiresMonth' in form.touched) ||
+        'expiresYear' in form.errors ||
+        !('expiresYear' in form.touched)
+      )
+    }
+
+    setIsAddressButtonDisabled(checkAddressFormErrors())
+    setIsPaymentButtonDisabled(checkPaymentFormErrors())
+  }, [form.errors, form.touched])
 
   return (
     <S.CartContainer className={isOpen ? 'is-open' : ''}>
@@ -257,7 +296,7 @@ const Cart = () => {
                     <Button
                       title="Continuar com o pagamento"
                       onClick={() => changeCurrentStep(3)}
-                      disabled={true}
+                      disabled={isAddressButtonDisabled}
                     >
                       Continuar com o pagamento
                     </Button>
@@ -392,7 +431,11 @@ const Cart = () => {
                         </S.InputGroup>
                       </S.Row>
                     </div>
-                    <Button title="Finalizar pagamento" type="submit">
+                    <Button
+                      title="Finalizar pagamento"
+                      type="submit"
+                      disabled={isPaymentButtonDisabled}
+                    >
                       Finalizar pagamento
                     </Button>
                     <Button
