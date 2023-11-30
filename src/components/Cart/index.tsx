@@ -49,15 +49,24 @@ const Cart = () => {
 
       complement: Yup.string(),
 
-      cardOwner: Yup.string().required('obrigatório'),
+      cardOwner: Yup.string().when((values, schema) =>
+        currentStep === 3 ? schema.required('obrigatório') : schema
+      ),
 
-      cardNumber: Yup.string().required('obrigatório'),
+      cardNumber: Yup.string().when((values, schema) =>
+        currentStep === 3 ? schema.required('obrigatório') : schema
+      ),
+      cardCode: Yup.string().when((values, schema) =>
+        currentStep === 3 ? schema.required('obrigatório') : schema
+      ),
 
-      cardCode: Yup.string().required('obrigatório'),
+      expiresMonth: Yup.string().when((values, schema) =>
+        currentStep === 3 ? schema.required('obrigatório') : schema
+      ),
 
-      expiresMonth: Yup.string().required('obrigatório'),
-
-      expiresYear: Yup.string().required('obrigatório')
+      expiresYear: Yup.string().when((values, schema) =>
+        currentStep === 3 ? schema.required('obrigatório') : schema
+      )
     }),
     onSubmit: (values) => {
       console.log(values)
