@@ -5,15 +5,25 @@ export type Props = {
   onClick?: () => void
   children: React.ReactNode
   variant?: 'primary' | 'secondary'
+  type?: 'button' | 'submit'
+  disabled?: boolean
 }
 
-const Button = ({ title, onClick, children, variant = 'primary' }: Props) => {
+const Button = ({
+  title,
+  onClick,
+  children,
+  variant = 'primary',
+  type = 'button',
+  disabled
+}: Props) => {
   return (
     <ButtonContainer
-      type="button"
+      type={type}
       title={title}
       onClick={onClick}
       variant={variant}
+      disabled={disabled}
     >
       {children}
     </ButtonContainer>

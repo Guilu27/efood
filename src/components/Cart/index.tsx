@@ -257,6 +257,7 @@ const Cart = () => {
                     <Button
                       title="Continuar com o pagamento"
                       onClick={() => changeCurrentStep(3)}
+                      disabled={true}
                     >
                       Continuar com o pagamento
                     </Button>
@@ -391,7 +392,7 @@ const Cart = () => {
                         </S.InputGroup>
                       </S.Row>
                     </div>
-                    <Button title="Finalizar pagamento">
+                    <Button title="Finalizar pagamento" type="submit">
                       Finalizar pagamento
                     </Button>
                     <Button

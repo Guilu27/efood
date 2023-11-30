@@ -15,4 +15,11 @@ export const ButtonContainer = styled.button<Props>`
   border: none;
   width: auto;
   cursor: pointer;
+  transition: all 0.5s ease;
+
+  &:disabled {
+    transition: all 0.5s ease;
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `
