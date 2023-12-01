@@ -8,10 +8,15 @@ import * as S from './styles'
 import { RootReducer } from '../../store'
 import { changeStep, close, remove } from '../../store/reducers/cart'
 import { PriceFormatter, getTotalPrice } from '../../utils'
+import { usePurchaseMutation } from '../../services/api'
 
 const Cart = () => {
   const [isAddressButtonDisabled, setIsAddressButtonDisabled] = useState(true)
   const [isPaymentButtonDisabled, setIsPaymentButtonDisabled] = useState(true)
+  const [purchase] = usePurchaseMutation()
+  const { isOpen, items, currentStep } = useSelector(
+    (state: RootReducer) => state.cart
+  )
 
   const form = useFormik({
     initialValues: {
@@ -45,7 +50,7 @@ const Cart = () => {
         .max(9, 'CEP invalido')
         .required('obrigatório'),
 
-      houseNumber: Yup.number().required('obrigatório'),
+      houseNumber: Yup.string().required('obrigatório'),
 
       complement: Yup.string(),
 
@@ -68,8 +73,36 @@ const Cart = () => {
         currentStep === 3 ? schema.required('obrigatório') : schema
       )
     }),
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: (values, { resetForm }) => {
+      purchase({
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.preco as number
+        })),
+        delivery: {
+          receiver: values.fullName,
+          address: {
+            description: values.address,
+            city: values.city,
+            zipCode: values.cep,
+            number: Number(values.houseNumber),
+            complement: values.complement
+          }
+        },
+        payment: {
+          card: {
+            name: values.cardOwner,
+            number: values.cardNumber,
+            code: Number(values.cardCode),
+            expires: {
+              month: Number(values.expiresMonth),
+              year: Number(values.expiresYear)
+            }
+          }
+        }
+      })
+
+      resetForm()
     }
   })
 
@@ -89,9 +122,6 @@ const Cart = () => {
     return hasError
   }
 
-  const { isOpen, items, currentStep } = useSelector(
-    (state: RootReducer) => state.cart
-  )
   const dispatch = useDispatch()
 
   const closeCart = () => {
