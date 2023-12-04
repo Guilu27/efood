@@ -36,9 +36,12 @@ const cartSlice = createSlice({
     },
     changeStep: (state, action: PayloadAction<number>) => {
       state.currentStep = action.payload
+    },
+    clear: (state) => {
+      state.items = []
     }
   }
 })
 
-export const { close, open, add, remove, changeStep } = cartSlice.actions
+export const { close, open, add, remove, changeStep, clear } = cartSlice.actions
 export default cartSlice.reducer

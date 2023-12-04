@@ -6,14 +6,15 @@ import { useEffect, useState } from 'react'
 import Button from '../Button'
 import * as S from './styles'
 import { RootReducer } from '../../store'
-import { changeStep, close, remove } from '../../store/reducers/cart'
+import { changeStep, close, remove, clear } from '../../store/reducers/cart'
 import { PriceFormatter, getTotalPrice } from '../../utils'
 import { usePurchaseMutation } from '../../services/api'
 
 const Cart = () => {
   const [isAddressButtonDisabled, setIsAddressButtonDisabled] = useState(true)
   const [isPaymentButtonDisabled, setIsPaymentButtonDisabled] = useState(true)
-  const [purchase, { isLoading, isSuccess, data }] = usePurchaseMutation()
+  const [purchase, { isLoading, isSuccess, data, reset }] =
+    usePurchaseMutation()
   const { isOpen, items, currentStep } = useSelector(
     (state: RootReducer) => state.cart
   )
@@ -126,6 +127,10 @@ const Cart = () => {
 
   const closeCart = () => {
     dispatch(close())
+    if (isSuccess) {
+      dispatch(clear())
+      reset()
+    }
   }
 
   const removeItem = (id: number) => {
@@ -134,6 +139,12 @@ const Cart = () => {
 
   const changeCurrentStep = (step: number) => {
     dispatch(changeStep(step))
+  }
+
+  const handleCompletePurchase = () => {
+    dispatch(close())
+    dispatch(clear())
+    reset()
   }
 
   useEffect(() => {
@@ -372,7 +383,12 @@ const Cart = () => {
                           Esperamos que desfrute de uma deliciosa e agradável
                           experiência gastronômica. Bom apetite!
                         </p>
-                        <Button title="Concluir">Concluir</Button>
+                        <Button
+                          title="Concluir"
+                          onClick={handleCompletePurchase}
+                        >
+                          Concluir
+                        </Button>
                       </S.SuccessMensage>
                     ) : (
                       <>
