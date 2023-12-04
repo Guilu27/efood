@@ -39,6 +39,7 @@ export const Sidebar = styled.aside`
   padding: 2rem 0.5rem 0 0.5rem;
   max-width: 22.5rem;
   width: 100%;
+  color: ${colors.beige};
 
   ul {
     gap: 1rem;
@@ -53,7 +54,6 @@ export const Sidebar = styled.aside`
   .empty-text {
     font-size: 14px;
     line-height: 22px;
-    color: ${colors.beige};
     text-align: center;
   }
 `
@@ -112,7 +112,6 @@ export const CartItem = styled.li`
   }
 `
 export const TotalValue = styled.div`
-  color: ${colors.beige};
   display: flex;
   justify-content: space-between;
   font-weight: bold;
@@ -123,7 +122,6 @@ export const TotalValue = styled.div`
 export const Form = styled.form`
   width: 100%;
   h2 {
-    color: ${colors.beige};
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -165,9 +163,19 @@ export const InputGroup = styled.div<InputGroupProps>`
   }
 
   label {
-    color: ${colors.beige};
     display: block;
     font-size: 0.875rem;
     margin-bottom: 0.5rem;
+  }
+`
+export const SuccessMensage = styled.div`
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    font-size: 14px;
   }
 `

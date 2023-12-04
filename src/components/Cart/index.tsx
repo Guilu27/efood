@@ -13,7 +13,7 @@ import { usePurchaseMutation } from '../../services/api'
 const Cart = () => {
   const [isAddressButtonDisabled, setIsAddressButtonDisabled] = useState(true)
   const [isPaymentButtonDisabled, setIsPaymentButtonDisabled] = useState(true)
-  const [purchase] = usePurchaseMutation()
+  const [purchase, { isLoading, isSuccess, data }] = usePurchaseMutation()
   const { isOpen, items, currentStep } = useSelector(
     (state: RootReducer) => state.cart
   )
@@ -348,141 +348,179 @@ const Cart = () => {
                   </>
                 ) : (
                   <>
-                    <h2>
-                      Pagamento - Valor a pagar
-                      <span> {PriceFormatter(getTotalPrice(items))}</span>
-                    </h2>
-                    <div>
-                      <S.Row>
-                        <S.InputGroup>
-                          <label htmlFor="cardOwner">
-                            Nome no cartão
-                            <span>
-                              {getErrorMessage(
-                                'cardOwner',
-                                form.errors.cardOwner
-                              )}
-                            </span>
-                          </label>
-                          <input
-                            className={
-                              checkInputHasError('cardOwner') ? 'error' : ''
-                            }
-                            onBlur={form.handleBlur}
-                            onChange={form.handleChange}
-                            value={form.values.cardOwner}
-                            type="text"
-                            id="cardOwner"
-                            name="cardOwner"
-                          />
-                        </S.InputGroup>
-                      </S.Row>
-                      <S.Row>
-                        <S.InputGroup>
-                          <label htmlFor="cardNumber">
-                            Número do cartão
-                            <span>
-                              {getErrorMessage(
-                                'cardNumber',
-                                form.errors.cardNumber
-                              )}
-                            </span>
-                          </label>
-                          <input
-                            className={
-                              checkInputHasError('cardNumber') ? 'error' : ''
-                            }
-                            onBlur={form.handleBlur}
-                            onChange={form.handleChange}
-                            value={form.values.cardNumber}
-                            type="text"
-                            id="cardNumber"
-                            name="cardNumber"
-                          />
-                        </S.InputGroup>
-                        <S.InputGroup maxWidth="87px">
-                          <label htmlFor="cardCode">
-                            CVV
-                            <span>
-                              {getErrorMessage(
-                                'cardCode',
-                                form.errors.cardCode
-                              )}
-                            </span>
-                          </label>
-                          <input
-                            className={
-                              checkInputHasError('cardCode') ? 'error' : ''
-                            }
-                            onBlur={form.handleBlur}
-                            onChange={form.handleChange}
-                            value={form.values.cardCode}
-                            type="text"
-                            id="cardCode"
-                            name="cardCode"
-                          />
-                        </S.InputGroup>
-                      </S.Row>
-                      <S.Row>
-                        <S.InputGroup>
-                          <label htmlFor="expiresMonth">
-                            Mês de vencimento
-                            <span>
-                              {getErrorMessage(
-                                'expiresMonth',
-                                form.errors.expiresMonth
-                              )}
-                            </span>
-                          </label>
-                          <input
-                            className={
-                              checkInputHasError('expiresMonth') ? 'error' : ''
-                            }
-                            onBlur={form.handleBlur}
-                            onChange={form.handleChange}
-                            value={form.values.expiresMonth}
-                            type="text"
-                            id="expiresMonth"
-                            name="expiresMonth"
-                          />
-                        </S.InputGroup>
-                        <S.InputGroup>
-                          <label htmlFor="expiresYear">
-                            Ano de vencimento
-                            <span>
-                              {getErrorMessage(
-                                'expiresYear',
-                                form.errors.expiresYear
-                              )}
-                            </span>
-                          </label>
-                          <input
-                            className={
-                              checkInputHasError('expiresYear') ? 'error' : ''
-                            }
-                            onBlur={form.handleBlur}
-                            onChange={form.handleChange}
-                            value={form.values.expiresYear}
-                            type="text"
-                            id="expiresYear"
-                            name="expiresYear"
-                          />
-                        </S.InputGroup>
-                      </S.Row>
-                    </div>
-                    <Button
-                      title="Finalizar pagamento"
-                      type="submit"
-                      disabled={isPaymentButtonDisabled}
-                    >
-                      Finalizar pagamento
-                    </Button>
-                    <Button
-                      title="Voltar para a edição de endereço"
-                      onClick={() => changeCurrentStep(2)}
-                    >
-                      Voltar para a edição de endereço
-                    </Button>
+                    {isSuccess && data ? (
+                      <S.SuccessMensage>
+                        <h3>Pedido realizado - {data.orderId}</h3>
+                        <p>
+                          Estamos felizes em informar que seu pedido já está em
+                          processo de preparação e, em breve, será entregue no
+                          endereço fornecido.
+                        </p>
+
+                        <p>
+                          Gostaríamos de ressaltar que nossos entregadores não
+                          estão autorizados a realizar cobranças extras.{' '}
+                        </p>
+
+                        <p>
+                          Lembre-se da importância de higienizar as mãos após o
+                          recebimento do pedido, garantindo assim sua segurança
+                          e bem-estar durante a refeição.
+                        </p>
+
+                        <p>
+                          Esperamos que desfrute de uma deliciosa e agradável
+                          experiência gastronômica. Bom apetite!
+                        </p>
+                        <Button title="Concluir">Concluir</Button>
+                      </S.SuccessMensage>
+                    ) : (
+                      <>
+                        <h2>
+                          Pagamento - Valor a pagar
+                          <span> {PriceFormatter(getTotalPrice(items))}</span>
+                        </h2>
+                        <div>
+                          <S.Row>
+                            <S.InputGroup>
+                              <label htmlFor="cardOwner">
+                                Nome no cartão
+                                <span>
+                                  {getErrorMessage(
+                                    'cardOwner',
+                                    form.errors.cardOwner
+                                  )}
+                                </span>
+                              </label>
+                              <input
+                                className={
+                                  checkInputHasError('cardOwner') ? 'error' : ''
+                                }
+                                onBlur={form.handleBlur}
+                                onChange={form.handleChange}
+                                value={form.values.cardOwner}
+                                type="text"
+                                id="cardOwner"
+                                name="cardOwner"
+                              />
+                            </S.InputGroup>
+                          </S.Row>
+                          <S.Row>
+                            <S.InputGroup>
+                              <label htmlFor="cardNumber">
+                                Número do cartão
+                                <span>
+                                  {getErrorMessage(
+                                    'cardNumber',
+                                    form.errors.cardNumber
+                                  )}
+                                </span>
+                              </label>
+                              <input
+                                className={
+                                  checkInputHasError('cardNumber')
+                                    ? 'error'
+                                    : ''
+                                }
+                                onBlur={form.handleBlur}
+                                onChange={form.handleChange}
+                                value={form.values.cardNumber}
+                                type="text"
+                                id="cardNumber"
+                                name="cardNumber"
+                              />
+                            </S.InputGroup>
+                            <S.InputGroup maxWidth="87px">
+                              <label htmlFor="cardCode">
+                                CVV
+                                <span>
+                                  {getErrorMessage(
+                                    'cardCode',
+                                    form.errors.cardCode
+                                  )}
+                                </span>
+                              </label>
+                              <input
+                                className={
+                                  checkInputHasError('cardCode') ? 'error' : ''
+                                }
+                                onBlur={form.handleBlur}
+                                onChange={form.handleChange}
+                                value={form.values.cardCode}
+                                type="text"
+                                id="cardCode"
+                                name="cardCode"
+                              />
+                            </S.InputGroup>
+                          </S.Row>
+                          <S.Row>
+                            <S.InputGroup>
+                              <label htmlFor="expiresMonth">
+                                Mês de vencimento
+                                <span>
+                                  {getErrorMessage(
+                                    'expiresMonth',
+                                    form.errors.expiresMonth
+                                  )}
+                                </span>
+                              </label>
+                              <input
+                                className={
+                                  checkInputHasError('expiresMonth')
+                                    ? 'error'
+                                    : ''
+                                }
+                                onBlur={form.handleBlur}
+                                onChange={form.handleChange}
+                                value={form.values.expiresMonth}
+                                type="text"
+                                id="expiresMonth"
+                                name="expiresMonth"
+                              />
+                            </S.InputGroup>
+                            <S.InputGroup>
+                              <label htmlFor="expiresYear">
+                                Ano de vencimento
+                                <span>
+                                  {getErrorMessage(
+                                    'expiresYear',
+                                    form.errors.expiresYear
+                                  )}
+                                </span>
+                              </label>
+                              <input
+                                className={
+                                  checkInputHasError('expiresYear')
+                                    ? 'error'
+                                    : ''
+                                }
+                                onBlur={form.handleBlur}
+                                onChange={form.handleChange}
+                                value={form.values.expiresYear}
+                                type="text"
+                                id="expiresYear"
+                                name="expiresYear"
+                              />
+                            </S.InputGroup>
+                          </S.Row>
+                        </div>
+                        <Button
+                          title="Finalizar pagamento"
+                          type="submit"
+                          disabled={isPaymentButtonDisabled}
+                        >
+                          {isLoading
+                            ? 'Finalizando pagamento...'
+                            : 'Finalizar pagamento'}
+                        </Button>
+                        <Button
+                          title="Voltar para a edição de endereço"
+                          onClick={() => changeCurrentStep(2)}
+                        >
+                          Voltar para a edição de endereço
+                        </Button>
+                      </>
+                    )}
                   </>
                 )}
               </S.Form>
