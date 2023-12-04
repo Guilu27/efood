@@ -51,22 +51,26 @@ const Card = ({ type, restaurant, menuItem }: Props) => {
     <div>
       <S.CardContainer type={type}>
         <S.CardDetails>
-          <S.CardInfo>
-            <S.CardTitle>
-              {isRestaurant ? restaurant.titulo : menuItem?.nome}
-            </S.CardTitle>
-            {isRestaurant && renderTags}
-          </S.CardInfo>
-          <S.CardDescription>
-            {isRestaurant ? restaurant.descricao : menuItem?.descricao}
-          </S.CardDescription>
-          <Button
-            title={renderButtonTitle}
-            onClick={handleButtonClick}
-            variant={type === 'restaurants' ? 'secondary' : 'primary'}
-          >
-            {renderButtonTitle}
-          </Button>
+          <div>
+            <div>
+              <S.CardInfo>
+                <S.CardTitle>
+                  {isRestaurant ? restaurant.titulo : menuItem?.nome}
+                </S.CardTitle>
+                {isRestaurant && renderTags}
+              </S.CardInfo>
+              <S.CardDescription>
+                {isRestaurant ? restaurant.descricao : menuItem?.descricao}
+              </S.CardDescription>
+            </div>
+            <Button
+              title={renderButtonTitle}
+              onClick={handleButtonClick}
+              variant={type === 'restaurants' ? 'secondary' : 'primary'}
+            >
+              {renderButtonTitle}
+            </Button>
+          </div>
         </S.CardDetails>
         <S.CardImage
           src={isRestaurant ? restaurant.capa : menuItem?.foto}

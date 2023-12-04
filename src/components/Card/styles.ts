@@ -13,6 +13,7 @@ export const CardContainer = styled.div<
   flex-direction: column-reverse;
   justify-content: flex-end;
   position: relative;
+  height: 100%;
 
   ${(props) =>
     props.type === 'foods' &&
@@ -35,6 +36,15 @@ export const CardDetails = styled.div`
   border: 1px solid ${colors.red};
   border-top: none;
   padding: 0.5rem;
+  height: 100%;
+
+  > div {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 `
 
 export const CardTitle = styled.h3`

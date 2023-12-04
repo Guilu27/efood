@@ -16,6 +16,10 @@ export const CardsContainer = styled.main<Omit<Props, 'restaurants'>>`
     grid-template-columns: 1fr;
   }
 
+  > div {
+    height: 100%;
+  }
+
   ${(props) =>
     props.type === 'foods' &&
     css`
