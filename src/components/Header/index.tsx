@@ -2,9 +2,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Logo from '../../assets/images/logo.svg'
-import * as S from './style'
+
 import { changeStep, open } from '../../store/reducers/cart'
 import { RootReducer } from '../../store'
+
+import * as S from './style'
 
 export type Props = {
   type: 'main' | 'restaurant'

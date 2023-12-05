@@ -2,7 +2,9 @@ import styled, { css } from 'styled-components'
 
 import { Props } from '.'
 
-export const CardsContainer = styled.main<Omit<Props, 'restaurants'>>`
+export const CardsContainer = styled.main<
+  Omit<Props, 'restaurants' | 'isLoading'>
+>`
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 2rem 0;

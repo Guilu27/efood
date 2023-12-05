@@ -5,11 +5,12 @@ import Banner from '../../components/Banner'
 import CardsList from '../../components/CardsList'
 
 import { useGetRestaurantQuery } from '../../services/api'
+import Loader from '../../components/Loader'
 
 const RestaurantPage = () => {
   const { id } = useParams()
 
-  const { data } = useGetRestaurantQuery(id ?? '1')
+  const { data, isLoading } = useGetRestaurantQuery(id ?? '1')
   const restaurant = data ? [data] : []
 
   if (restaurant) {
@@ -18,12 +19,16 @@ const RestaurantPage = () => {
         <Header type="restaurant" />
         <Banner restaurant={restaurant} />
         <div className="container">
-          <CardsList type="foods" restaurants={restaurant} />
+          <CardsList
+            type="foods"
+            restaurants={restaurant}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     )
   }
-  return <h4>Carregando...</h4>
+  return <Loader />
 }
 
 export default RestaurantPage

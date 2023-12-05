@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { useEffect, useState } from 'react'
 
 import Button from '../Button'
-import * as S from './styles'
+
 import { RootReducer } from '../../store'
 import { changeStep, close, remove, clear } from '../../store/reducers/cart'
 import { PriceFormatter, getTotalPrice } from '../../utils'
 import { usePurchaseMutation } from '../../services/api'
+
+import * as S from './styles'
 
 const Cart = () => {
   const [isAddressButtonDisabled, setIsAddressButtonDisabled] = useState(true)

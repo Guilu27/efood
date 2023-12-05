@@ -1,12 +1,19 @@
 import Card from '../Card'
+import Loader from '../Loader'
+
 import { CardsContainer } from './styles'
 
 export type Props = {
   type: 'restaurants' | 'foods'
   restaurants: Restaurant[]
+  isLoading: boolean
 }
 
-const CardsList = ({ type, restaurants }: Props) => {
+const CardsList = ({ type, restaurants, isLoading }: Props) => {
+  if (isLoading) {
+    return <Loader />
+  }
+
   const renderCards = (restaurant: Restaurant) => {
     if (type === 'restaurants') {
       return (

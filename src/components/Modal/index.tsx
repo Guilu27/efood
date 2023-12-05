@@ -1,11 +1,12 @@
 import { useDispatch } from 'react-redux'
 
 import Button from '../Button'
-import * as S from './styles'
-
 import Close from '../../assets/images/close.svg'
+
 import { open, add, changeStep } from '../../store/reducers/cart'
 import { PriceFormatter } from '../../utils'
+
+import * as S from './styles'
 
 export type Props = {
   isVisible: boolean

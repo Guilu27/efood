@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-import * as S from './styles'
 import Tag from '../Tag'
-import Star from '../../assets/images/star.svg'
 import Button from '../Button'
-
 import Modal from '../Modal'
+import Star from '../../assets/images/star.svg'
+
+import * as S from './styles'
 
 export type Props = {
   type: 'restaurants' | 'foods'
