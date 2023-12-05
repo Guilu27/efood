@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import InputMask from 'react-input-mask'
 
 import Button from '../Button'
 
@@ -295,7 +296,7 @@ const Cart = () => {
                               {getErrorMessage('cep', form.errors.cep)}
                             </span>
                           </label>
-                          <input
+                          <InputMask
                             className={checkInputHasError('cep') ? 'error' : ''}
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
@@ -303,6 +304,7 @@ const Cart = () => {
                             type="text"
                             id="cep"
                             name="cep"
+                            mask="99999-999"
                           />
                         </S.InputGroup>
                         <S.InputGroup>
@@ -322,9 +324,10 @@ const Cart = () => {
                             onBlur={form.handleBlur}
                             onChange={form.handleChange}
                             value={form.values.houseNumber}
-                            type="text"
+                            type="number"
                             id="houseNumber"
                             name="houseNumber"
+                            min="1"
                           />
                         </S.InputGroup>
                       </S.Row>
@@ -434,7 +437,7 @@ const Cart = () => {
                                   )}
                                 </span>
                               </label>
-                              <input
+                              <InputMask
                                 className={
                                   checkInputHasError('cardNumber')
                                     ? 'error'
@@ -446,6 +449,7 @@ const Cart = () => {
                                 type="text"
                                 id="cardNumber"
                                 name="cardNumber"
+                                mask="9999 9999 9999 9999"
                               />
                             </S.InputGroup>
                             <S.InputGroup maxWidth="87px">
@@ -458,7 +462,7 @@ const Cart = () => {
                                   )}
                                 </span>
                               </label>
-                              <input
+                              <InputMask
                                 className={
                                   checkInputHasError('cardCode') ? 'error' : ''
                                 }
@@ -468,6 +472,7 @@ const Cart = () => {
                                 type="text"
                                 id="cardCode"
                                 name="cardCode"
+                                mask="999"
                               />
                             </S.InputGroup>
                           </S.Row>
@@ -482,7 +487,7 @@ const Cart = () => {
                                   )}
                                 </span>
                               </label>
-                              <input
+                              <InputMask
                                 className={
                                   checkInputHasError('expiresMonth')
                                     ? 'error'
@@ -494,6 +499,7 @@ const Cart = () => {
                                 type="text"
                                 id="expiresMonth"
                                 name="expiresMonth"
+                                mask="99"
                               />
                             </S.InputGroup>
                             <S.InputGroup>
@@ -506,7 +512,7 @@ const Cart = () => {
                                   )}
                                 </span>
                               </label>
-                              <input
+                              <InputMask
                                 className={
                                   checkInputHasError('expiresYear')
                                     ? 'error'
@@ -518,6 +524,7 @@ const Cart = () => {
                                 type="text"
                                 id="expiresYear"
                                 name="expiresYear"
+                                mask="99"
                               />
                             </S.InputGroup>
                           </S.Row>
